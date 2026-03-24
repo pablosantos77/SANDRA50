@@ -5,7 +5,6 @@ import BottomNav from './components/BottomNav';
 import HomePage from './pages/HomePage';
 import GalleryPage from './pages/GalleryPage';
 import UploadPage from './pages/UploadPage';
-import TipsPage from './pages/TipsPage';
 import PrivacyPage from './pages/PrivacyPage';
 
 import SuccessUploadPage from './pages/SuccessUploadPage';
@@ -31,7 +30,6 @@ export default function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/galeria" element={<GalleryPage />} />
           <Route path="/subir" element={<UploadPage />} />
-          <Route path="/consejos" element={<TipsPage />} />
           <Route path="/privacidad" element={<PrivacyPage />} />
           
           <Route path="/acceder-galeria" element={<PreGalleryPage />} />
