@@ -107,66 +107,74 @@ export default function GalleryPage() {
   }, [photos]);
 
   return (
-    <main className="mx-auto min-h-screen max-w-6xl px-4 pb-28 pt-8">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold tracking-tight md:text-4xl">Galería compartida</h1>
-        <p className="mt-2 max-w-2xl text-sm leading-6 text-neutral-600">
-          Aquí aparecen las fotos que se han reunido del evento. Puedes pulsar cualquier imagen para verla
-          más grande o borrarla si te has equivocado al subirla.
-        </p>
-      </div>
+    <main className="mx-auto min-h-screen max-w-[1000px] px-4 pb-28 pt-8 relative">
+      <header className="flex justify-between items-end mb-8 px-2">
+        <div>
+          <h1 className="font-headline text-3xl text-primary md:text-left text-center">Galería de Momentos</h1>
+          <p className="text-on-surface-variant font-body text-sm mt-1 md:text-left text-center">Nuestros recuerdos favoritos</p>
+        </div>
+        <span className="hidden md:inline text-secondary font-label text-xs uppercase tracking-widest font-bold">{photos.length} fotos</span>
+      </header>
 
-      <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
-        {items.map((item) => {
-          if (item.type === 'ad') {
+      {photos.length === 0 ? (
+        <div className="text-center py-16 text-on-surface-variant bg-white rounded-xl shadow-[0_4px_12px_rgba(74,124,111,0.05)] mx-2">
+          <span className="material-symbols-outlined text-5xl mb-4 block opacity-40">photo_camera</span>
+          <p className="font-headline text-lg">¡Sé el primero en compartir!</p>
+          <p className="font-body text-sm mt-1">Las fotos aparecerán aquí en tiempo real.</p>
+        </div>
+      ) : (
+        <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
+          {items.map((item) => {
+            if (item.type === 'ad') {
+              return (
+                <div key={item.id} className="col-span-2 md:col-span-3 lg:col-span-4 flex justify-center">
+                  <AdBanner slot={`GL-${item.id}`} />
+                </div>
+              );
+            }
+
             return (
-              <div key={item.id} className="col-span-2 md:col-span-3 lg:col-span-4">
-                <AdBanner slot={`GL-${item.id}`} />
+              <div key={item.id} className="group overflow-hidden rounded-xl shadow-[0_4px_12px_rgba(74,124,111,0.08)] bg-white relative aspect-square">
+                <button
+                  onClick={() => setSelected(item)}
+                  className="h-full w-full outline-none"
+                >
+                  <img
+                    src={item.url}
+                    alt={item.alt}
+                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    loading="lazy"
+                  />
+                </button>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    deletePhoto(item.id, item.file_path);
+                  }}
+                  className="absolute top-2 left-2 z-20 bg-white/90 hover:bg-red-50 text-red-500 hover:text-red-600 p-2 rounded-full shadow-[0_4px_12px_rgba(0,0,0,0.1)] transition-all md:opacity-0 group-hover:opacity-100 border border-red-100/50 hover:scale-105 active:scale-95"
+                  aria-label="Borrar foto"
+                  title="Borrar foto"
+                >
+                  <span className="material-symbols-outlined text-[18px] block">delete</span>
+                </button>
               </div>
             );
-          }
-
-          return (
-            <div key={item.id} className="group overflow-hidden rounded-3xl bg-neutral-100 shadow-sm ring-1 ring-black/5 relative aspect-square">
-              <button
-                onClick={() => setSelected(item)}
-                className="h-full w-full outline-none"
-              >
-                <img
-                  src={item.url}
-                  alt={item.alt}
-                  className="h-full w-full object-cover transition duration-300 group-hover:scale-105"
-                  loading="lazy"
-                />
-              </button>
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  deletePhoto(item.id, item.file_path);
-                }}
-                className="absolute top-3 left-3 md:top-4 md:left-4 z-20 bg-white/90 hover:bg-red-50 text-red-500 hover:text-red-600 p-2 rounded-full shadow-md transition-all md:opacity-0 group-hover:opacity-100 hover:scale-105 active:scale-95"
-                aria-label="Borrar foto"
-                title="Borrar foto"
-              >
-                <span className="material-symbols-outlined text-[20px] block">delete</span>
-              </button>
-            </div>
-          );
-        })}
-      </div>
+          })}
+        </div>
+      )}
 
       {selected && (
         <div
-          className="fixed inset-0 z-[60] flex items-center justify-center bg-black/80 p-4"
+          className="fixed inset-0 z-[60] flex items-center justify-center bg-black/80 backdrop-blur-sm p-4"
           onClick={() => setSelected(null)}
         >
-          <div className="max-w-4xl overflow-hidden rounded-3xl bg-white relative" onClick={(e) => e.stopPropagation()}>
-            <img src={selected.url} alt={selected.alt} className="max-h-[80vh] w-full object-contain bg-neutral-100" />
+          <div className="max-w-4xl max-h-[90vh] overflow-hidden rounded-xl bg-[#f9f9f7] relative shadow-2xl" onClick={(e) => e.stopPropagation()}>
+            <img src={selected.url} alt={selected.alt} className="max-h-[75vh] w-full object-contain bg-black/5" />
             <div className="flex items-center justify-between p-4">
-              <p className="text-sm text-neutral-600">{selected.alt}</p>
+              <p className="font-headline text-primary">{selected.alt}</p>
               <button
                 onClick={() => setSelected(null)}
-                className="rounded-xl bg-black px-4 py-2 text-sm font-medium text-white"
+                className="rounded-xl bg-[#446351] px-5 py-2.5 text-sm font-label font-bold tracking-wide text-white shadow-md active:scale-95 transition-all"
               >
                 Cerrar
               </button>
@@ -176,7 +184,7 @@ export default function GalleryPage() {
                   e.stopPropagation();
                   deletePhoto(selected.id, selected.file_path);
                 }}
-                className="absolute top-4 left-4 z-20 bg-white hover:bg-red-50 text-red-500 hover:text-red-600 p-2 rounded-full shadow-md transition-all hover:scale-105 active:scale-95"
+                className="absolute top-4 left-4 z-20 bg-white hover:bg-red-50 text-red-500 hover:text-red-600 p-2.5 rounded-full shadow-md transition-all hover:scale-105 active:scale-95"
                 aria-label="Borrar foto"
                 title="Borrar foto"
               >

@@ -4,80 +4,74 @@ import AdBanner from '../components/AdBanner';
 
 export default function HomePage() {
   return (
-    <main className="mx-auto min-h-screen max-w-5xl px-4 pb-28 pt-8">
-      <section className="overflow-hidden rounded-3xl bg-gradient-to-br from-neutral-950 via-neutral-900 to-neutral-800 px-6 py-10 text-white shadow-2xl md:px-10 md:py-14">
-        <div className="max-w-3xl">
-          <span className="mb-4 inline-flex rounded-full border border-white/15 bg-white/10 px-3 py-1 text-xs uppercase tracking-[0.18em] text-white/80">
-            Álbum digital del evento
-          </span>
-          <h1 className="text-4xl font-bold tracking-tight md:text-6xl">
-            Guarda y comparte los mejores recuerdos del evento
-          </h1>
-          <p className="mt-4 max-w-2xl text-base leading-7 text-white/75 md:text-lg">
-            Esta web está pensada para reunir todas las fotos del evento en un solo lugar. Los invitados
-            pueden escanear el QR, subir sus imágenes fácilmente y revisar la galería desde cualquier móvil.
-            Así evitamos perder fotos dispersas en WhatsApp y conseguimos un álbum mucho más ordenado.
+    <main className="relative overflow-x-hidden min-h-screen">
+      <section className="relative min-h-[751px] flex flex-col items-center justify-center px-6 text-center bg-surface">
+        <img
+          alt="Botanical Frame Background"
+          className="absolute inset-0 w-full h-full object-cover z-0 opacity-40"
+          src="https://lh3.googleusercontent.com/aida-public/AB6AXuCOz07OzXIOKbo89qeG68QyikGF0zF_nmy5QoQ_6FVYwueUsoebajxbVSblE_9HRJjJ_lmHAOxVqdOHBWfqYLHfkOiSnYrCjn7BTOORTsCVO6VHcJOFs1G7LR-j0oma4-EHBVTgdv1Wo3ux--9YA7F31NPZwtkjJ6ZcxldpfaovDbS-XcjSLm7SShtDOhOnWii_swmoVboAl9YPj3cjScr9EjjnkProfdFCVmfNwAltaQMU_Z1ed5jf_Id_Wc6ZA8RwZ3YQt8lM8SPN"
+        />
+        <div className="relative z-10 space-y-4">
+          <span className="font-label text-secondary tracking-[0.2em] text-sm uppercase">Celebrando el Legado</span>
+          <div className="flex flex-col items-center">
+            <h2 className="font-headline text-[10rem] leading-none text-primary/10 select-none">50</h2>
+            <h3 className="font-sandra text-6xl -mt-20 text-primary tracking-tight">Sandra</h3>
+          </div>
+          <p className="font-headline italic text-on-surface-variant max-w-xs mx-auto text-lg pt-4">
+              Media vida llena de historias, amor y momentos inolvidables.
           </p>
-
-          <div className="mt-8 flex flex-wrap gap-3">
+          <div className="pt-8 flex flex-col items-center gap-4">
             <Link
-              to="/subir"
-              className="rounded-2xl bg-white px-5 py-3 text-sm font-semibold text-black transition hover:scale-[1.02]"
+                to="/subir"
+                className="inline-flex items-center gap-2 bg-gradient-to-r from-primary to-primary-container text-on-primary px-8 py-4 rounded-xl font-label font-bold text-sm tracking-wide shadow-lg active:scale-95 transition-all w-full max-w-[280px] justify-center"
             >
-              Subir mis fotos
+              <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>add_circle</span>
+              SUBE TUS FOTOS
             </Link>
             <Link
-              to="/galeria"
-              className="rounded-2xl border border-white/20 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
+                to="/acceder-galeria"
+                className="inline-flex items-center gap-2 bg-white/80 border border-primary/20 text-primary px-8 py-3 rounded-xl font-label font-bold text-sm tracking-wide shadow-sm hover:bg-white active:scale-95 transition-all w-full max-w-[280px] justify-center"
             >
-              Ver galería
+              <span className="material-symbols-outlined">photo_library</span>
+              VER GALERÍA
             </Link>
           </div>
         </div>
       </section>
 
-      <section className="mt-8 grid gap-6 md:grid-cols-3">
-        <div className="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-black/5">
-          <h2 className="text-lg font-semibold">Fácil para todos</h2>
-          <p className="mt-2 text-sm leading-6 text-neutral-600">
-            Solo necesitan escanear un QR y elegir las fotos desde su móvil. Sin procesos complicados.
-          </p>
-        </div>
-        <div className="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-black/5">
-          <h2 className="text-lg font-semibold">Recuerdos organizados</h2>
-          <p className="mt-2 text-sm leading-6 text-neutral-600">
-            Todas las imágenes quedan agrupadas en una galería común para revisarlas después del evento.
-          </p>
-        </div>
-        <div className="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-black/5">
-          <h2 className="text-lg font-semibold">Preparada para monetizar</h2>
-          <p className="mt-2 text-sm leading-6 text-neutral-600">
-            Incluye páginas informativas y estructura válida para solicitar AdSense cuando el sitio esté listo.
-          </p>
+      <section className="py-20 px-6 bg-surface-container-low relative">
+        <div className="max-w-md mx-auto">
+          <header className="text-center mb-12">
+            <h2 className="font-headline text-3xl text-primary">Cómo compartir</h2>
+            <div className="w-12 h-0.5 bg-secondary-fixed-dim mx-auto mt-3"></div>
+          </header>
+          
+          <div className="grid gap-8 mb-12">
+            {[
+              { step: 1, title: "Elige las fotos", desc: "Navega por tu galería y selecciona los mejores recuerdos del cumpleaños." },
+              { step: 2, title: "Súbelas al álbum", desc: "Envíalas para que todos los invitados podamos disfrutarlas en directo." },
+              { step: 3, title: "Revive la fiesta", desc: "Entra a la galería compartida y no te pierdas ningún detalle de lo que pasó." }
+            ].map(item => (
+              <div key={item.step} className="bg-surface-container-lowest p-6 rounded-xl shadow-[0_4px_12px_rgba(74,124,111,0.05)] flex items-start gap-4">
+                <div className="w-10 h-10 flex-shrink-0 bg-secondary-container text-on-secondary-container rounded-full flex items-center justify-center font-bold">{item.step}</div>
+                <div>
+                  <h4 className="font-headline text-lg text-on-surface">{item.title}</h4>
+                  <p className="text-on-surface-variant font-body text-sm mt-1">{item.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <AdBanner className="mt-8" />
         </div>
       </section>
 
-      <AdBanner className="mt-8" />
-
-      <section className="mt-8 rounded-3xl bg-white p-6 shadow-sm ring-1 ring-black/5 md:p-8">
-        <h2 className="text-2xl font-semibold">Cómo funciona</h2>
-        <div className="mt-6 grid gap-4 md:grid-cols-3">
-          <div>
-            <div className="mb-2 text-sm font-semibold text-neutral-400">Paso 1</div>
-            <p className="text-sm leading-6 text-neutral-700">Escanea el código QR desde el móvil.</p>
-          </div>
-          <div>
-            <div className="mb-2 text-sm font-semibold text-neutral-400">Paso 2</div>
-            <p className="text-sm leading-6 text-neutral-700">Entra en la página de subida y selecciona tus fotos favoritas.</p>
-          </div>
-          <div>
-            <div className="mb-2 text-sm font-semibold text-neutral-400">Paso 3</div>
-            <p className="text-sm leading-6 text-neutral-700">Revisa la galería y disfruta del álbum compartido con todos los asistentes.</p>
-          </div>
+      <section className="py-24 px-8 bg-surface-container text-center relative overflow-hidden">
+        <div className="max-w-sm mx-auto space-y-6 relative z-10">
+          <span className="material-symbols-outlined text-secondary text-4xl" style={{ fontVariationSettings: "'FILL' 1" }}>favorite</span>
+          <p className="font-sandra text-3xl text-primary">Con amor, Sandra</p>
         </div>
       </section>
-
-      <AdBanner className="mt-8" />
     </main>
   );
 }

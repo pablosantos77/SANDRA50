@@ -25,6 +25,16 @@ async function uploadPhoto(file) {
   return fileName;
 }
 
+const UploadingOverlay = () => (
+  <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[100] flex items-center justify-center">
+    <div className="bg-white rounded-2xl p-8 flex flex-col items-center gap-4 shadow-2xl mx-6">
+      <div className="w-12 h-12 border-4 border-[#4a7c6f] border-t-transparent rounded-full animate-spin"></div>
+      <p className="font-headline text-lg text-primary">Subiendo tus fotos...</p>
+      <p className="text-on-surface-variant font-body text-sm tracking-wide">Espera un momento</p>
+    </div>
+  </div>
+);
+
 export default function UploadPage() {
   const [files, setFiles] = useState([]);
   const [uploading, setUploading] = useState(false);
@@ -55,37 +65,32 @@ export default function UploadPage() {
 
   return (
     <main className="mx-auto min-h-screen max-w-5xl px-4 pb-28 pt-8">
-      {uploading && (
-        <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[100] flex items-center justify-center">
-          <div className="bg-white rounded-2xl p-8 flex flex-col items-center gap-4 shadow-2xl mx-6">
-            <div className="w-12 h-12 border-4 border-black border-t-transparent rounded-full animate-spin"></div>
-            <p className="text-lg font-bold">Subiendo tus fotos...</p>
-            <p className="text-sm text-neutral-600">Por favor, espera un momento</p>
-          </div>
-        </div>
-      )}
+      {uploading && <UploadingOverlay />}
       <div className="grid gap-8 md:grid-cols-[1.15fr_0.85fr]">
-        <section className="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-black/5 md:p-8">
-          <h1 className="text-3xl font-bold tracking-tight">Subir fotos</h1>
-          <p className="mt-2 text-sm leading-6 text-neutral-600">
-            Selecciona tus imágenes favoritas del evento y súbelas al álbum compartido. Intenta enviar fotos
-            nítidas y evita duplicados para mantener la galería más limpia y útil para todos.
-          </p>
+        <section className="bg-surface-container-lowest p-6 rounded-xl shadow-[0_4px_12px_rgba(74,124,111,0.05)] md:p-8">
+          <header className="mb-6">
+            <h1 className="font-headline text-3xl text-primary">Añadir al Álbum</h1>
+            <p className="text-on-surface-variant font-body text-sm mt-2">
+              Selecciona tus imágenes favoritas del evento y súbelas a la galería compartida del 50 cumpleaños. Intenta enviar fotos
+              nítidas y evita duplicados para mantener la galería más limpia.
+            </p>
+          </header>
 
-          <form onSubmit={handleSubmit} className="mt-6 space-y-5">
-            <label className="block rounded-3xl border-2 border-dashed border-neutral-300 p-6 text-center transition hover:border-neutral-400 cursor-pointer">
-              <span className="block text-sm font-medium text-neutral-800">Pulsa aquí para elegir imágenes</span>
-              <span className="mt-1 block text-xs text-neutral-500">Formatos recomendados: JPG, PNG, HEIC</span>
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <label className="block rounded-xl border-2 border-dashed border-secondary/30 bg-white p-8 text-center transition hover:border-secondary cursor-pointer">
+              <span className="material-symbols-outlined text-4xl text-secondary mb-2" style={{ fontVariationSettings: "'FILL' 0" }}>add_photo_alternate</span>
+              <span className="block font-headline text-lg text-primary">Pulsa para buscar en el móvil</span>
+              <span className="mt-1 block font-label text-xs text-secondary tracking-widest uppercase">Formatos recomendados: JPG, PNG, HEIC</span>
               <input type="file" accept="image/*" multiple className="hidden" onChange={handleChange} />
             </label>
 
             {previews.length > 0 && (
-              <div>
-                <h2 className="mb-3 text-sm font-semibold text-neutral-800">Vista previa</h2>
-                <div className="grid grid-cols-2 gap-3 md:grid-cols-3">
+              <div className="bg-white p-4 rounded-xl border border-black/5 shadow-sm">
+                <h2 className="mb-3 font-headline text-sm text-primary uppercase tracking-widest">Vista previa ({previews.length})</h2>
+                <div className="grid grid-cols-3 gap-2 md:grid-cols-4">
                   {previews.map((item, index) => (
-                    <div key={`${item.file.name}-${index}`} className="overflow-hidden rounded-2xl bg-neutral-100">
-                      <img src={item.url} alt={item.file.name} className="aspect-square w-full object-cover" />
+                    <div key={`${item.file.name}-${index}`} className="overflow-hidden rounded-lg bg-stone-100 aspect-square">
+                      <img src={item.url} alt={item.file.name} className="h-full w-full object-cover" />
                     </div>
                   ))}
                 </div>
@@ -95,21 +100,33 @@ export default function UploadPage() {
             <button
               type="submit"
               disabled={files.length === 0 || uploading}
-              className="rounded-2xl bg-black px-5 py-3 text-sm font-semibold text-white transition hover:opacity-90 disabled:opacity-50"
+              className="w-full inline-flex items-center justify-center gap-2 bg-gradient-to-r from-primary to-primary-container text-on-primary px-8 py-4 rounded-xl font-label font-bold text-sm tracking-wide shadow-lg active:scale-95 transition-all disabled:opacity-50 disabled:active:scale-100"
             >
-              {uploading ? 'Enviando...' : 'Enviar fotos'}
+              <span className="material-symbols-outlined">{uploading ? 'cloud_sync' : 'cloud_upload'}</span>
+              {uploading ? 'ENVIANDO...' : 'ENVIAR FOTOS'}
             </button>
           </form>
         </section>
 
         <aside className="space-y-6">
-          <div className="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-black/5">
-            <h2 className="text-lg font-semibold">Consejos rápidos</h2>
-            <ul className="mt-3 space-y-3 text-sm leading-6 text-neutral-600">
-              <li>Evita fotos borrosas o repetidas.</li>
-              <li>Prioriza imágenes con buena luz.</li>
-              <li>Sube momentos espontáneos y fotos de grupo.</li>
-              <li>Revisa antes de enviar para no duplicar archivos.</li>
+          <div className="bg-surface-container-low p-6 rounded-xl shadow-[0_4px_12px_rgba(74,124,111,0.05)]">
+            <h2 className="font-headline text-xl text-primary flex items-center gap-2 mb-4">
+              <span className="material-symbols-outlined text-secondary">tips_and_updates</span>
+              Consejos rápidos
+            </h2>
+            <ul className="space-y-3 font-body text-sm text-on-surface-variant">
+              <li className="flex items-start gap-2">
+                <span className="material-symbols-outlined text-[#4a7c6f] text-[18px]">check_circle</span>
+                Prioriza imágenes con buena luz.
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="material-symbols-outlined text-[#4a7c6f] text-[18px]">check_circle</span>
+                Sube momentos espontáneos y fotos de grupo.
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="material-symbols-outlined text-[#4a7c6f] text-[18px]">check_circle</span>
+                Revisa antes de enviar para no duplicar fotos.
+              </li>
             </ul>
           </div>
 

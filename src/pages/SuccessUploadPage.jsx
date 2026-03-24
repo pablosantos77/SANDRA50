@@ -1,19 +1,22 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import AdBanner from '../components/AdBanner';
-import { CheckCircle2 } from 'lucide-react';
 
 export default function SuccessUploadPage() {
   return (
-    <main className="mx-auto min-h-screen max-w-2xl px-6 pt-16 pb-32 text-center">
-      <CheckCircle2 size={64} className="mx-auto text-green-500 mb-6" />
-      <h1 className="text-3xl font-bold">¡Fotos subidas!</h1>
-      <p className="mt-4 text-neutral-600">Sandra ya puede ver tus recuerdos. ¡Gracias por participar!</p>
+    <main className="mx-auto min-h-screen max-w-2xl px-6 pt-16 pb-32 text-center flex flex-col items-center">
+      <span className="material-symbols-outlined text-7xl text-[#4a7c6f] mb-6" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
+      <h1 className="font-headline text-4xl text-primary">¡Fotos subidas!</h1>
+      <p className="mt-4 text-on-surface-variant font-body text-lg max-w-md mx-auto">Sandra ya puede ver tus recuerdos en el álbum compartido. ¡Gracias por participar!</p>
       
-      <AdBanner slot="SU-001" className="my-10" />
+      <AdBanner slot="SU-001" className="my-10 w-full" />
 
-      <Link to="/galeria" className="block w-full rounded-2xl bg-black py-4 font-bold text-white transition hover:scale-[1.02]">
-        Ver Galería Completa
+      <Link 
+        to="/galeria" 
+        className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-primary to-primary-container text-on-primary px-8 py-4 rounded-xl font-label font-bold text-sm tracking-wide shadow-lg active:scale-95 transition-all w-full max-w-[280px]"
+      >
+        <span className="material-symbols-outlined">photo_library</span>
+        VER GALERÍA COMPLETA
       </Link>
     </main>
   );
