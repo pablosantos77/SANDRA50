@@ -96,40 +96,150 @@ const InstructionSection = () => (
   </section>
 );
 
-const GRID_SPANS = [
-  "col-span-1 row-span-2",
-  "col-span-1 row-span-1",
-  "col-span-1 row-span-2",
-  "col-span-1 row-span-1",
-  "col-span-2 row-span-1",
-];
+const GallerySection = ({ photos, onDelete }) => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
+  const totalSlides = photos.length;
 
-const GallerySection = ({ photos }) => (
-  <section className="py-20 px-4 bg-surface" id="gallery">
-    <header className="flex justify-between items-end mb-8 px-2">
-      <div>
-        <h2 className="font-headline text-3xl text-primary">Galería en vivo</h2>
-        <p className="text-on-surface-variant text-sm font-label">Nuestros recuerdos favoritos</p>
-      </div>
-      <span className="text-secondary font-label text-xs font-bold">{photos.length} fotos</span>
-    </header>
-    {photos.length === 0 ? (
-      <div className="text-center py-16 text-on-surface-variant">
-        <span className="material-symbols-outlined text-5xl mb-4 block opacity-40">photo_camera</span>
-        <p className="font-headline text-lg">¡Sé el primero en compartir!</p>
-        <p className="text-sm mt-1">Las fotos aparecerán aquí en tiempo real.</p>
-      </div>
-    ) : (
-      <div className="grid grid-cols-2 gap-3 auto-rows-[160px]">
-        {photos.map((photo, i) => (
-          <div key={photo.id} className={`overflow-hidden rounded-xl bg-surface-container ${GRID_SPANS[i % GRID_SPANS.length]}`}>
-            <img alt="Recuerdo" className="w-full h-full object-cover transition-transform hover:scale-105 duration-300" src={photo.url} loading="lazy" />
+  // Auto-play
+  useEffect(() => {
+    if (totalSlides === 0 || isHovered) return;
+    
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % totalSlides);
+    }, 6000);
+    
+    return () => clearInterval(interval);
+  }, [totalSlides, isHovered]);
+
+  // Keyboard support
+  useEffect(() => {
+    if (totalSlides === 0) return;
+    const handleKeyDown = (e) => {
+      if (e.key === 'ArrowLeft') {
+        setCurrentSlide((prev) => (prev - 1 + totalSlides) % totalSlides);
+      }
+      if (e.key === 'ArrowRight') {
+        setCurrentSlide((prev) => (prev + 1) % totalSlides);
+      }
+    };
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [totalSlides]);
+
+  // Prevent out of bounds if photos get deleted
+  useEffect(() => {
+    if (totalSlides > 0 && currentSlide >= totalSlides) {
+      setCurrentSlide(totalSlides - 1);
+    }
+  }, [totalSlides, currentSlide]);
+
+  const goToSlide = (index) => {
+    setCurrentSlide(index);
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + totalSlides) % totalSlides);
+  };
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % totalSlides);
+  };
+
+  return (
+    <section className="py-20 px-4 bg-surface relative" id="gallery">
+      <div className="max-w-[1000px] mx-auto">
+        <header className="flex justify-between items-end mb-8 px-2">
+          <div>
+            <h2 className="font-headline text-3xl text-primary md:text-left text-center">Galería de Momentos</h2>
+            <p className="text-on-surface-variant text-sm font-label uppercase tracking-widest mt-1 md:text-left text-center">Nuestros recuerdos favoritos</p>
           </div>
-        ))}
+          <span className="hidden md:inline text-secondary font-label text-xs font-bold">{totalSlides} fotos</span>
+        </header>
+
+        {totalSlides === 0 ? (
+          <div className="text-center py-16 text-on-surface-variant bg-white rounded-xl shadow-sm border border-black/5">
+            <span className="material-symbols-outlined text-5xl mb-4 block opacity-40">photo_camera</span>
+            <p className="font-headline text-lg">¡Sé el primero en compartir!</p>
+            <p className="text-sm mt-1">Las fotos aparecerán aquí en tiempo real.</p>
+          </div>
+        ) : (
+          <div>
+            <div 
+              className="relative overflow-hidden rounded-xl shadow-[0_20px_60px_rgba(74,124,111,0.15)] bg-white"
+              onMouseEnter={() => setIsHovered(true)}
+              onMouseLeave={() => setIsHovered(false)}
+            >
+              <div 
+                className="flex transition-transform duration-[800ms] ease-[cubic-bezier(0.4,0,0.2,1)]"
+                style={{ transform: `translateX(-${currentSlide * 100}%)` }}
+              >
+                {photos.map((photo, index) => (
+                  <div key={photo.id} className="group min-w-full aspect-video md:aspect-[16/9] relative bg-stone-100 flex items-center justify-center">
+                    <img 
+                      src={photo.url} 
+                      alt={`Foto ${index + 1}`} 
+                      className="w-full h-full object-contain md:object-cover block"
+                      loading={index === 0 ? "eager" : "lazy"} 
+                    />
+                    {onDelete && (
+                      <button
+                        onClick={() => onDelete(photo.id, photo.file_path)}
+                        className="absolute top-4 left-4 md:top-6 md:left-6 z-20 bg-white/90 hover:bg-red-50 text-red-500 hover:text-red-600 p-2 md:p-2.5 rounded-full shadow-[0_4px_12px_rgba(0,0,0,0.1)] transition-all md:opacity-0 group-hover:opacity-100 border border-red-100/50 hover:scale-105 active:scale-95"
+                        aria-label="Borrar foto"
+                        title="Borrar foto"
+                      >
+                        <span className="material-symbols-outlined text-[20px] md:text-[22px] block">delete</span>
+                      </button>
+                    )}
+                  </div>
+                ))}
+              </div>
+              
+              <div className="absolute top-4 right-4 md:top-6 md:right-6 bg-white/95 px-3 py-1.5 md:px-4 md:py-2 rounded-full text-xs md:text-[13px] text-[#4a7c6f] font-medium z-10 shadow-sm transition-all border border-[#d4ccc0]/30 border-opacity-50">
+                <span>{currentSlide + 1}</span> / <span>{totalSlides}</span>
+              </div>
+            </div>
+
+            <div className="flex gap-3 justify-center mt-6 md:mt-8">
+              <button 
+                onClick={prevSlide}
+                className="w-10 h-10 md:w-11 md:h-11 border border-[#d4ccc0] rounded-full bg-white text-[#4a7c6f] text-base md:text-lg flex items-center justify-center hover:bg-[#4a7c6f] hover:text-white hover:border-[#4a7c6f] transition-all hover:scale-105 active:scale-95 shadow-sm"
+                title="Anterior"
+              >
+                ‹
+              </button>
+              <button 
+                onClick={nextSlide}
+                className="w-10 h-10 md:w-11 md:h-11 border border-[#d4ccc0] rounded-full bg-white text-[#4a7c6f] text-base md:text-lg flex items-center justify-center hover:bg-[#4a7c6f] hover:text-white hover:border-[#4a7c6f] transition-all hover:scale-105 active:scale-95 shadow-sm"
+                title="Siguiente"
+              >
+                ›
+              </button>
+            </div>
+
+            {totalSlides > 1 && (
+              <div className="flex gap-2.5 justify-center mt-6 flex-wrap px-4 pb-4">
+                {photos.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => goToSlide(index)}
+                    aria-label={`Ir a foto ${index + 1}`}
+                    className={`h-2.5 rounded-full transition-all duration-300 border-none p-0 shadow-sm ${
+                      index === currentSlide 
+                        ? 'bg-[#4a7c6f] w-7' 
+                        : 'bg-[#d4ccc0] w-2.5 hover:bg-[#6a9a87]'
+                    }`}
+                  />
+                ))}
+              </div>
+            )}
+          </div>
+        )}
       </div>
-    )}
-  </section>
-);
+    </section>
+  );
+};
 
 const UploadingOverlay = () => (
   <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[100] flex items-center justify-center">
@@ -208,6 +318,7 @@ export default function App() {
     const mapped = data.map(row => ({
       id: row.id,
       url: getPublicUrl(row.file_path),
+      file_path: row.file_path,
     }));
     setPhotos(mapped);
   }, []);
@@ -227,8 +338,16 @@ export default function App() {
           const newPhoto = {
             id: payload.new.id,
             url: getPublicUrl(payload.new.file_path),
+            file_path: payload.new.file_path,
           };
           setPhotos(prev => [newPhoto, ...prev]);
+        }
+      )
+      .on(
+        'postgres_changes',
+        { event: 'DELETE', schema: 'public', table: 'photos' },
+        (payload) => {
+          setPhotos(prev => prev.filter(p => p.id !== payload.old.id));
         }
       )
       .subscribe();
@@ -261,6 +380,29 @@ export default function App() {
     }
   };
 
+  const deletePhoto = async (id, filePath) => {
+    const confirmed = window.confirm('¿Seguro que quieres borrar esta foto?');
+    if (!confirmed) return;
+
+    try {
+      const { error: storageError } = await supabase.storage
+        .from('photos')
+        .remove([filePath]);
+      if (storageError) throw storageError;
+
+      const { error: dbError } = await supabase
+        .from('photos')
+        .delete()
+        .eq('id', id);
+      if (dbError) throw dbError;
+
+      setPhotos(prev => prev.filter(photo => photo.id !== id));
+    } catch (error) {
+      console.error('Error al borrar:', error.message);
+      alert('No se pudo borrar la foto.');
+    }
+  };
+
   return (
     <div className="bg-background text-on-surface font-body selection:bg-secondary-container min-h-screen">
       {uploading && <UploadingOverlay />}
@@ -268,7 +410,7 @@ export default function App() {
       <main className="relative overflow-x-hidden pt-16">
         <HeroSection onUploadClick={handleUploadClick} />
         <InstructionSection />
-        <GallerySection photos={photos} />
+        <GallerySection photos={photos} onDelete={deletePhoto} />
         <Footer />
       </main>
       <BottomNav onUploadClick={handleUploadClick} />
