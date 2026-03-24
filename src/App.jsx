@@ -2,14 +2,12 @@ import React from 'react';
 import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
 import BottomNav from './components/BottomNav';
 
-// Páginas originales
 import HomePage from './pages/HomePage';
 import GalleryPage from './pages/GalleryPage';
 import UploadPage from './pages/UploadPage';
 import TipsPage from './pages/TipsPage';
 import PrivacyPage from './pages/PrivacyPage';
 
-// Nuevas páginas para AdSense
 import SuccessUploadPage from './pages/SuccessUploadPage';
 import PreGalleryPage from './pages/PreGalleryPage';
 import PhotoGuidePage from './pages/PhotoGuidePage';
@@ -30,14 +28,12 @@ export default function App() {
         </header>
 
         <Routes>
-          {/* Rutas originales */}
           <Route path="/" element={<HomePage />} />
           <Route path="/galeria" element={<GalleryPage />} />
           <Route path="/subir" element={<UploadPage />} />
           <Route path="/consejos" element={<TipsPage />} />
           <Route path="/privacidad" element={<PrivacyPage />} />
           
-          {/* Nuevas rutas de publicidad y transición */}
           <Route path="/acceder-galeria" element={<PreGalleryPage />} />
           <Route path="/gracias-por-subir" element={<SuccessUploadPage />} />
           <Route path="/guia-fotos" element={<PhotoGuidePage />} />
