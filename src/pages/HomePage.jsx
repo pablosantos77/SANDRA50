@@ -102,6 +102,12 @@ export default function HomePage() {
           <p className="font-sandra text-3xl text-primary">Con amor, Sandra</p>
         </div>
       </section>
+
+      <div className="flex justify-center pb-8 pt-4">
+        <Link to="/privacidad" className="text-[10px] text-on-surface-variant/30 hover:text-on-surface-variant/70 transition-colors">
+          Política de Privacidad
+        </Link>
+      </div>
     </main>
   );
 }

@@ -41,16 +41,6 @@ export default function BottomNav() {
         <span className="font-['Manrope'] text-[10px] font-medium uppercase tracking-[0.05rem] mt-1">Subir</span>
       </NavLink>
 
-      <NavLink
-        to="/guia-fotos"
-        onClick={scrollToTop}
-        className={({ isActive }) =>
-          `${linkBase} ${isActive ? 'text-[#446351] scale-110' : 'text-[#446351]/60 hover:text-[#6b5d42]'}`
-        }
-      >
-        <span className="material-symbols-outlined mb-1">lightbulb</span>
-        <span className="font-['Manrope'] text-[10px] font-medium uppercase tracking-[0.05rem]">Consejos</span>
-      </NavLink>
     </nav>
   );
 }

@@ -16,7 +16,6 @@ const Header = () => (
         <span className="material-symbols-outlined text-[#446351] dark:text-emerald-200">spa</span>
         <h1 className="font-['Noto_Serif'] font-bold text-xl tracking-tight text-[#446351] dark:text-emerald-200">50 de Sandra</h1>
       </Link>
-      <Link to="/privacidad" className="font-label text-xs tracking-widest uppercase font-bold text-secondary hover:text-primary transition-colors">Privacidad</Link>
     </div>
   </header>
 );
