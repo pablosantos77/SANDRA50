@@ -173,8 +173,7 @@ export default function GalleryPage() {
         >
           <div className="max-w-4xl max-h-[90vh] overflow-hidden rounded-xl bg-[#f9f9f7] relative shadow-2xl" onClick={(e) => e.stopPropagation()}>
             <img src={selected.url} alt={selected.alt} className="max-h-[75vh] w-full object-contain bg-black/5" />
-            <div className="flex items-center justify-between p-4">
-              <p className="font-headline text-primary">{selected.alt}</p>
+            <div className="flex items-center justify-end p-4">
               <button
                 onClick={() => setSelected(null)}
                 className="rounded-xl bg-[#446351] px-5 py-2.5 text-sm font-label font-bold tracking-wide text-white shadow-md active:scale-95 transition-all"
