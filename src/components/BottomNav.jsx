@@ -35,7 +35,7 @@ export default function BottomNav() {
       </NavLink>
 
       <NavLink
-        to="/acceder-galeria"
+        to="/galeria"
         onClick={scrollToTop}
         className={({ isActive }) =>
           `flex flex-col items-center justify-center w-[90px] h-[75px] rounded-2xl shadow-md transition-all duration-300 transform outline-none text-[#f9f9f7] hover:-translate-y-1.5 hover:shadow-xl hover:bg-[#344d3f] active:scale-95 ${

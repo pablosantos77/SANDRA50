@@ -6,7 +6,6 @@ import GalleryPage from './pages/GalleryPage';
 import UploadPage from './pages/UploadPage';
 import PrivacyPage from './pages/PrivacyPage';
 import SuccessUploadPage from './pages/SuccessUploadPage';
-import PreGalleryPage from './pages/PreGalleryPage';
 import PhotoGuidePage from './pages/PhotoGuidePage';
 
 const Header = () => (
@@ -28,7 +27,6 @@ export default function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/galeria" element={<GalleryPage />} />
-          <Route path="/acceder-galeria" element={<PreGalleryPage />} /> 
           <Route path="/subir" element={<UploadPage />} />
           <Route path="/gracias-por-subir" element={<SuccessUploadPage />} />
           <Route path="/guia-fotos" element={<PhotoGuidePage />} />

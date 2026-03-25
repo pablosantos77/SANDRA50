@@ -59,7 +59,7 @@ export default function HomePage() {
               </label>
             </form>
             <Link
-                to="/acceder-galeria"
+                to="/galeria"
                 className="inline-flex items-center gap-2 bg-white/80 border border-primary/20 text-primary px-8 py-3 rounded-xl font-label font-bold text-sm tracking-wide shadow-sm hover:bg-white active:scale-95 transition-all w-full max-w-[280px] justify-center"
             >
               <span className="material-symbols-outlined">photo_library</span>
