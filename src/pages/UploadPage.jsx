@@ -1,39 +1,8 @@
 import React, { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AdBanner from '../components/AdBanner';
-import { supabase } from '../supabaseClient';
-
-const BUCKET = 'photos';
-
-async function uploadPhoto(file) {
-  const ext = file.name.split('.').pop();
-  const fileName = `${Date.now()}_${Math.random().toString(36).slice(2, 8)}.${ext}`;
-
-  // 1. Upload to Storage
-  const { error: uploadError } = await supabase.storage
-    .from(BUCKET)
-    .upload(fileName, file, { cacheControl: '3600', upsert: false });
-
-  if (uploadError) throw uploadError;
-
-  // 2. Insert record in photos table
-  const { error: dbError } = await supabase
-    .from('photos')
-    .insert({ file_path: fileName });
-
-  if (dbError) throw dbError;
-  return fileName;
-}
-
-const UploadingOverlay = () => (
-  <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[100] flex items-center justify-center">
-    <div className="bg-white rounded-2xl p-8 flex flex-col items-center gap-4 shadow-2xl mx-6">
-      <div className="w-12 h-12 border-4 border-[#4a7c6f] border-t-transparent rounded-full animate-spin"></div>
-      <p className="font-headline text-lg text-primary">Subiendo tus fotos...</p>
-      <p className="text-on-surface-variant font-body text-sm tracking-wide">Espera un momento</p>
-    </div>
-  </div>
-);
+import { uploadPhoto } from '../utils/upload';
+import UploadingOverlay from '../components/UploadingOverlay';
 
 export default function UploadPage() {
   const [files, setFiles] = useState([]);

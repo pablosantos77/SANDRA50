@@ -1,10 +1,32 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import AdBanner from '../components/AdBanner';
+import { uploadPhoto } from '../utils/upload';
+import UploadingOverlay from '../components/UploadingOverlay';
 
 export default function HomePage() {
+  const [uploading, setUploading] = useState(false);
+  const navigate = useNavigate();
+
+  const handleCapture = async (e) => {
+    const files = Array.from(e.target.files || []);
+    if (files.length === 0) return;
+    setUploading(true);
+    try {
+      for (const file of files) {
+        await uploadPhoto(file);
+      }
+      navigate('/gracias-por-subir');
+    } catch (error) {
+      console.error('Error uploading:', error);
+      alert('Hubo un error al subir la foto.');
+      setUploading(false);
+    }
+  };
+
   return (
     <main className="relative overflow-x-hidden min-h-screen">
+      {uploading && <UploadingOverlay />}
       <section className="relative min-h-[751px] flex flex-col items-center justify-center px-6 text-center bg-surface">
         <img
           alt="Botanical Frame Background"
@@ -21,13 +43,21 @@ export default function HomePage() {
               Media vida llena de historias, amor y momentos inolvidables.
           </p>
           <div className="pt-8 flex flex-col items-center gap-4">
-            <Link
-                to="/subir"
-                className="inline-flex items-center gap-2 bg-gradient-to-r from-primary to-primary-container text-on-primary px-8 py-4 rounded-xl font-label font-bold text-sm tracking-wide shadow-lg active:scale-95 transition-all w-full max-w-[280px] justify-center"
-            >
-              <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>add_circle</span>
-              SUBE TUS FOTOS
-            </Link>
+            <form className="w-full max-w-[280px]">
+              <label
+                  className="inline-flex items-center gap-2 bg-gradient-to-r from-primary to-primary-container text-on-primary px-8 py-4 rounded-xl font-label font-bold text-sm tracking-wide shadow-lg active:scale-95 transition-all w-full justify-center cursor-pointer mb-0 m-0"
+              >
+                <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>photo_camera</span>
+                SACA YA TU FOTO
+                <input 
+                  type="file" 
+                  accept="image/*" 
+                  capture="environment" 
+                  className="hidden" 
+                  onChange={handleCapture}
+                />
+              </label>
+            </form>
             <Link
                 to="/acceder-galeria"
                 className="inline-flex items-center gap-2 bg-white/80 border border-primary/20 text-primary px-8 py-3 rounded-xl font-label font-bold text-sm tracking-wide shadow-sm hover:bg-white active:scale-95 transition-all w-full max-w-[280px] justify-center"
