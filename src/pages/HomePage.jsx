@@ -1,12 +1,33 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import AdBanner from '../components/AdBanner';
 import { uploadPhoto } from '../utils/upload';
 import UploadingOverlay from '../components/UploadingOverlay';
+import { supabase } from '../supabaseClient';
 
 export default function HomePage() {
   const [uploading, setUploading] = useState(false);
+  const [recentPhotos, setRecentPhotos] = useState([]);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchRecentPhotos = async () => {
+      const { data, error } = await supabase
+        .from('photos')
+        .select('id, file_path')
+        .order('created_at', { ascending: false })
+        .limit(8);
+
+      if (!error && data) {
+        const photosWithUrl = data.map(photo => {
+          const { data: urlData } = supabase.storage.from('photos').getPublicUrl(photo.file_path);
+          return { id: photo.id, url: urlData.publicUrl };
+        });
+        setRecentPhotos(photosWithUrl);
+      }
+    };
+    fetchRecentPhotos();
+  }, []);
 
   const handleCapture = async (e) => {
     const files = Array.from(e.target.files || []);
@@ -95,6 +116,40 @@ export default function HomePage() {
           <AdBanner className="mt-8" />
         </div>
       </section>
+
+      {recentPhotos.length > 0 && (
+        <section className="py-12 bg-surface text-center">
+          <div className="max-w-md mx-auto mb-6 px-6 relative z-10">
+            <h2 className="font-headline text-2xl text-primary mb-2">Últimos recuerdos</h2>
+            <p className="font-body text-sm text-on-surface-variant">Echa un vistazo a lo que están compartiendo.</p>
+          </div>
+          <div className="flex overflow-x-auto gap-4 px-6 pb-8 snap-x snap-mandatory relative z-20" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+            {recentPhotos.map((photo) => (
+              <div 
+                key={photo.id} 
+                className="shrink-0 snap-center w-[220px] aspect-[4/5] rounded-2xl overflow-hidden shadow-md bg-surface-container"
+              >
+                <img 
+                  src={photo.url} 
+                  alt="Recuerdo" 
+                  className="w-full h-full object-cover"
+                  loading="lazy"
+                />
+              </div>
+            ))}
+            <style dangerouslySetInnerHTML={{__html: `
+              .flex::-webkit-scrollbar { display: none; }
+            `}} />
+          </div>
+          <Link
+            to="/galeria"
+            className="inline-flex items-center gap-2 text-primary font-label font-bold text-sm tracking-wide mt-2 hover:opacity-80 transition-opacity"
+          >
+            Ver la galería completa
+            <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
+          </Link>
+        </section>
+      )}
 
       <section className="py-24 px-8 bg-surface-container text-center relative overflow-hidden">
         <div className="max-w-sm mx-auto space-y-6 relative z-10">
