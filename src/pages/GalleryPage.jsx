@@ -117,41 +117,44 @@ export default function GalleryPage() {
       </header>
 
       {photos.length === 0 ? (
-        <div className="text-center py-16 text-on-surface-variant bg-white rounded-xl shadow-[0_4px_12px_rgba(74,124,111,0.05)] mx-2">
-          <span className="material-symbols-outlined text-5xl mb-4 block opacity-40">photo_camera</span>
-          <p className="font-headline text-lg">¡Sé el primero en compartir!</p>
-          <p className="font-body text-sm mt-1">Las fotos aparecerán aquí en tiempo real.</p>
+        <div className="text-center py-20 text-[#2D4636]/70">
+          <span className="text-5xl mb-4 block">📸</span>
+          <h3 className="font-sandra text-2xl mb-2 text-[#2D4636]">¡Sé el primero en compartir!</h3>
+          <p className="font-body text-sm">Las fotos de la fiesta aparecerán aquí en tiempo real.</p>
         </div>
       ) : (
-        <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
+        <div className="columns-2 sm:columns-3 lg:columns-[250px] gap-6 max-w-[1200px] mx-auto w-full">
           {items.map((item) => {
             if (item.type === 'ad') {
               return (
-                <div key={item.id} className="col-span-2 md:col-span-3 lg:col-span-4 flex justify-center">
+                <div key={item.id} className="break-inside-avoid mb-6 flex justify-center">
                   <AdBanner slot={`GL-${item.id}`} />
                 </div>
               );
             }
 
             return (
-              <div key={item.id} className="group overflow-hidden rounded-xl shadow-[0_4px_12px_rgba(74,124,111,0.08)] bg-white relative aspect-square">
+              <div key={item.id} className="group break-inside-avoid mb-6 bg-white rounded-2xl overflow-hidden shadow-[0_4px_15px_rgba(45,70,54,0.05)] border border-[#2D4636]/10 transition-all duration-300 hover:-translate-y-1.5 hover:scale-[1.02] hover:shadow-[0_12px_30px_rgba(45,70,54,0.12)] cursor-pointer relative">
                 <button
                   onClick={() => setSelected(item)}
-                  className="h-full w-full outline-none"
+                  className="w-full outline-none block"
                 >
                   <img
                     src={item.url}
                     alt={item.alt}
-                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    className="w-full h-auto block object-cover"
                     loading="lazy"
                   />
+                  <div className="p-3 bg-white font-body text-[#2D4636] text-[0.85rem] flex justify-between items-center text-left">
+                    <span>De: <strong>Invitado</strong></span>
+                  </div>
                 </button>
                 <button
                   onClick={(e) => {
                     e.stopPropagation();
                     deletePhoto(item.id, item.file_path);
                   }}
-                  className="absolute top-2 left-2 z-20 bg-white/90 hover:bg-red-50 text-red-500 hover:text-red-600 p-2 rounded-full shadow-[0_4px_12px_rgba(0,0,0,0.1)] transition-all md:opacity-0 group-hover:opacity-100 border border-red-100/50 hover:scale-105 active:scale-95"
+                  className="absolute top-2 right-2 z-20 bg-white/90 hover:bg-red-50 text-red-500 hover:text-red-600 p-2 rounded-full shadow-[0_4px_12px_rgba(0,0,0,0.1)] transition-all md:opacity-0 group-hover:opacity-100 border border-red-100/50 hover:scale-105 active:scale-95"
                   aria-label="Borrar foto"
                   title="Borrar foto"
                 >
