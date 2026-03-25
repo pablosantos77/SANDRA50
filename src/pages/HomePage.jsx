@@ -90,14 +90,14 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="py-20 px-6 bg-surface-container-low relative">
+      <section className="pt-20 pb-10 px-6 bg-surface-container-low relative">
         <div className="max-w-md mx-auto">
           <header className="text-center mb-12">
             <h2 className="font-headline text-3xl text-primary">Cómo compartir</h2>
             <div className="w-12 h-0.5 bg-secondary-fixed-dim mx-auto mt-3"></div>
           </header>
           
-          <div className="grid gap-8 mb-12">
+          <div className="grid gap-6 mb-8">
             {[
               { step: 1, title: "Elige las fotos", desc: "Navega por tu galería y selecciona los mejores recuerdos del cumpleaños." },
               { step: 2, title: "Súbelas al álbum", desc: "Envíalas para que todos los invitados podamos disfrutarlas en directo." },
@@ -118,7 +118,7 @@ export default function HomePage() {
       </section>
 
       {recentPhotos.length > 0 && (
-        <section className="py-12 bg-surface text-center">
+        <section className="pt-4 pb-12 bg-surface text-center">
           <div className="max-w-md mx-auto mb-6 px-6 relative z-10">
             <h2 className="font-headline text-2xl text-primary mb-2">Últimos recuerdos</h2>
             <p className="font-body text-sm text-on-surface-variant">Echa un vistazo a lo que están compartiendo.</p>
