@@ -19,8 +19,12 @@ export default function BottomNav() {
           }`
         }
       >
-        <span className="material-symbols-outlined mb-1 text-[22px] transition-transform duration-500 group-hover:scale-110" style={{ fontVariationSettings: isActive ? "'FILL' 1" : "'FILL' 0" }}>home</span>
-        <span className="font-headline text-[10px] font-bold uppercase tracking-[0.1em]">Inicio</span>
+        {({ isActive }) => (
+          <>
+            <span className="material-symbols-outlined mb-1 text-[22px] transition-transform duration-500 group-hover:scale-110" style={{ fontVariationSettings: isActive ? "'FILL' 1" : "'FILL' 0" }}>home</span>
+            <span className="font-headline text-[10px] font-bold uppercase tracking-[0.1em]">Inicio</span>
+          </>
+        )}
       </NavLink>
 
       <NavLink
@@ -34,11 +38,15 @@ export default function BottomNav() {
           }`
         }
       >
-        <div className="relative">
-          <span className="material-symbols-outlined mb-1 text-[22px] transition-transform duration-500 group-hover:scale-110" style={{ fontVariationSettings: isActive ? "'FILL' 1" : "'FILL' 0" }}>add_circle</span>
-          {!isActive && <span className="absolute -top-1 -right-1 w-2 h-2 bg-primary rounded-full"></span>}
-        </div>
-        <span className="font-headline text-[10px] font-bold uppercase tracking-[0.1em]">Subir</span>
+        {({ isActive }) => (
+          <>
+            <div className="relative">
+              <span className="material-symbols-outlined mb-1 text-[22px] transition-transform duration-500 group-hover:scale-110" style={{ fontVariationSettings: isActive ? "'FILL' 1" : "'FILL' 0" }}>add_circle</span>
+              {!isActive && <span className="absolute -top-1 -right-1 w-2 h-2 bg-primary rounded-full"></span>}
+            </div>
+            <span className="font-headline text-[10px] font-bold uppercase tracking-[0.1em]">Subir</span>
+          </>
+        )}
       </NavLink>
 
       <NavLink
@@ -52,8 +60,12 @@ export default function BottomNav() {
           }`
         }
       >
-        <span className="material-symbols-outlined mb-1 text-[22px] transition-transform duration-500 group-hover:scale-110" style={{ fontVariationSettings: isActive ? "'FILL' 1" : "'FILL' 0" }}>photo_library</span>
-        <span className="font-headline text-[10px] font-bold uppercase tracking-[0.1em]">Galería</span>
+        {({ isActive }) => (
+          <>
+            <span className="material-symbols-outlined mb-1 text-[22px] transition-transform duration-500 group-hover:scale-110" style={{ fontVariationSettings: isActive ? "'FILL' 1" : "'FILL' 0" }}>photo_library</span>
+            <span className="font-headline text-[10px] font-bold uppercase tracking-[0.1em]">Galería</span>
+          </>
+        )}
       </NavLink>
     </nav>
   );
