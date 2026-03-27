@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Download } from 'lucide-react';
+import { Download, Loader2 } from 'lucide-react';
+import JSZip from 'jszip';
 import { supabase } from '../supabaseClient';
 
 const BUCKET = 'photos';
@@ -12,6 +13,39 @@ function getPublicUrl(filePath) {
 export default function GalleryPage() {
   const [selected, setSelected] = useState(null);
   const [photos, setPhotos] = useState([]);
+  const [isDownloading, setIsDownloading] = useState(false);
+
+  const handleDownloadAll = async () => {
+    if (photos.length === 0) return;
+    setIsDownloading(true);
+    try {
+      const zip = new JSZip();
+      
+      const fetchPromises = photos.map(async (photo, index) => {
+        const resp = await fetch(photo.url);
+        if (!resp.ok) throw new Error('Network response was not ok');
+        const blob = await resp.blob();
+        zip.file(`foto_${index + 1}.jpg`, blob);
+      });
+
+      await Promise.all(fetchPromises);
+      const zipBlob = await zip.generateAsync({ type: 'blob' });
+      
+      const blobUrl = window.URL.createObjectURL(zipBlob);
+      const link = document.createElement('a');
+      link.href = blobUrl;
+      link.download = 'Album_Sandra_50.zip';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(blobUrl);
+    } catch (error) {
+      console.error('Error generando el zip:', error);
+      alert('Hubo un problema descargando algunas imágenes.');
+    } finally {
+      setIsDownloading(false);
+    }
+  };
 
   // Fetch existing photos on mount
   const fetchPhotos = useCallback(async () => {
@@ -123,11 +157,21 @@ export default function GalleryPage() {
           <div className="flex items-center gap-4 flex-wrap justify-center md:justify-start">
             <h1 className="font-headline text-3xl text-primary md:text-left text-center">Galería de Momentos</h1>
             <button
-              onClick={() => alert(`¡Próximamente! Aquí se generará un archivo .zip con las ${photos.length} fotos de la fiesta.`)}
-              className="flex flex-shrink-0 items-center gap-2 bg-black hover:bg-stone-900 text-white px-4 py-2 rounded-xl font-label text-xs sm:text-sm font-bold tracking-widest uppercase transition-all shadow-lg active:scale-95"
+              onClick={handleDownloadAll}
+              disabled={isDownloading || photos.length === 0}
+              className="flex flex-shrink-0 items-center gap-2 bg-black hover:bg-stone-900 text-white px-4 py-2 rounded-xl font-label text-xs sm:text-sm font-bold tracking-widest uppercase transition-all shadow-lg active:scale-95 disabled:opacity-50 disabled:active:scale-100 disabled:cursor-wait"
             >
-              <Download size={18} />
-              Descargar Todo
+              {isDownloading ? (
+                <>
+                  <Loader2 size={18} className="animate-spin" />
+                  Empaquetando fotos...
+                </>
+              ) : (
+                <>
+                  <Download size={18} />
+                  Descargar Álbum
+                </>
+              )}
             </button>
           </div>
           <p className="text-on-surface-variant font-body text-sm mt-1 md:text-left text-center">Nuestros recuerdos favoritos</p>
