@@ -7,7 +7,7 @@ export default function BottomNav() {
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 
   return (
-    <nav className="fixed bottom-0 left-0 w-full flex justify-center gap-4 items-center px-4 pb-8 pt-4 bg-white/70 backdrop-blur-2xl z-50 border-t border-primary/5">
+    <nav className="fixed bottom-0 left-0 w-full flex justify-center gap-3 items-center px-4 pt-3 bg-white/70 backdrop-blur-2xl z-50 border-t border-primary/5" style={{ paddingBottom: 'max(1.5rem, env(safe-area-inset-bottom, 1.5rem))' }}>
       <NavLink
         to="/"
         onClick={scrollToTop}

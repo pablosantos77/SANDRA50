@@ -32,11 +32,11 @@ export default function UploadPage() {
   };
 
   return (
-    <main className="mx-auto min-h-screen max-w-5xl px-4 pb-28 pt-8">
+    <main className="mx-auto min-h-screen max-w-5xl px-3 sm:px-4 pb-32 pt-6 sm:pt-8">
       {uploading && <UploadingOverlay />}
-      <div className="grid gap-8 md:grid-cols-[1.15fr_0.85fr]">
-        <section className="bg-surface-container-lowest p-6 rounded-xl shadow-[0_4px_12px_rgba(74,124,111,0.05)] md:p-8">
-          <header className="mb-6">
+      <div className="grid gap-6 sm:gap-8 md:grid-cols-[1.15fr_0.85fr]">
+        <section className="bg-surface-container-lowest p-5 sm:p-6 md:p-8 rounded-2xl shadow-[0_4px_12px_rgba(74,124,111,0.05)]">
+          <header className="mb-5 sm:mb-6">
             <h1 className="font-headline text-3xl text-primary">Añadir al Álbum</h1>
             <p className="text-on-surface-variant font-body text-sm mt-2">
               Selecciona tus imágenes favoritas del evento y súbelas a la galería compartida del 50 cumpleaños. Intenta enviar fotos

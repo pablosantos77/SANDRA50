@@ -151,32 +151,29 @@ export default function GalleryPage() {
   // Removed items ad mixer
 
   return (
-    <main className="mx-auto min-h-screen max-w-[1000px] px-4 pb-28 pt-8 relative">
-      <header className="flex items-end justify-between mb-8 px-2 flex-wrap gap-4">
-        <div>
-          <div className="flex items-center gap-4 flex-wrap justify-center md:justify-start">
-            <h1 className="font-headline text-3xl text-primary md:text-left text-center">Galería de Momentos</h1>
-            <button
-              onClick={handleDownloadAll}
-              disabled={isDownloading || photos.length === 0}
-              className="flex flex-shrink-0 items-center gap-2 bg-black hover:bg-stone-900 text-white px-4 py-2 rounded-xl font-label text-xs sm:text-sm font-bold tracking-widest uppercase transition-all shadow-lg active:scale-95 disabled:opacity-50 disabled:active:scale-100 disabled:cursor-wait"
-            >
-              {isDownloading ? (
-                <>
-                  <Loader2 size={18} className="animate-spin" />
-                  Empaquetando fotos...
-                </>
-              ) : (
-                <>
-                  <Download size={18} />
-                  Descargar Álbum
-                </>
-              )}
-            </button>
-          </div>
-          <p className="text-on-surface-variant font-body text-sm mt-1 md:text-left text-center">Nuestros recuerdos favoritos</p>
+    <main className="mx-auto min-h-screen max-w-[1000px] px-3 sm:px-4 pb-32 pt-6 sm:pt-8 relative">
+      <header className="flex flex-col sm:flex-row items-center sm:items-end justify-between mb-6 sm:mb-8 px-1 gap-3 sm:gap-4">
+        <div className="w-full sm:w-auto text-center sm:text-left">
+          <h1 className="font-headline text-2xl sm:text-3xl text-primary">Galería de Momentos</h1>
+          <p className="text-on-surface-variant font-body text-xs sm:text-sm mt-1">Nuestros recuerdos favoritos · {photos.length} fotos</p>
         </div>
-        <span className="hidden md:inline text-secondary font-label text-xs uppercase tracking-widest font-bold whitespace-nowrap">{photos.length} fotos</span>
+        <button
+          onClick={handleDownloadAll}
+          disabled={isDownloading || photos.length === 0}
+          className="flex flex-shrink-0 items-center gap-2 bg-[#2D4636] hover:bg-[#1f3328] text-white px-5 py-3 sm:px-4 sm:py-2 rounded-2xl sm:rounded-xl font-label text-xs sm:text-sm font-bold tracking-widest uppercase transition-all shadow-lg active:scale-95 disabled:opacity-50 disabled:active:scale-100 disabled:cursor-wait w-full sm:w-auto justify-center"
+        >
+          {isDownloading ? (
+            <>
+              <Loader2 size={18} className="animate-spin" />
+              Empaquetando...
+            </>
+          ) : (
+            <>
+              <Download size={18} />
+              Descargar Álbum
+            </>
+          )}
+        </button>
       </header>
 
       {photos.length === 0 ? (
@@ -186,10 +183,10 @@ export default function GalleryPage() {
           <p className="font-body text-sm">Las fotos de la fiesta aparecerán aquí en tiempo real.</p>
         </div>
       ) : (
-        <div className="columns-2 sm:columns-3 lg:columns-[250px] gap-6 max-w-[1200px] mx-auto w-full">
+        <div className="columns-2 sm:columns-3 lg:columns-[250px] gap-3 sm:gap-6 max-w-[1200px] mx-auto w-full">
           {photos.map((item) => {
             return (
-              <div key={item.id} className="group break-inside-avoid mb-6 bg-white rounded-2xl overflow-hidden shadow-[0_4px_15px_rgba(45,70,54,0.05)] border border-[#2D4636]/10 transition-all duration-300 hover:-translate-y-1.5 hover:scale-[1.02] hover:shadow-[0_12px_30px_rgba(45,70,54,0.12)] cursor-pointer relative">
+              <div key={item.id} className="group break-inside-avoid mb-3 sm:mb-6 bg-white rounded-xl sm:rounded-2xl overflow-hidden shadow-[0_4px_15px_rgba(45,70,54,0.05)] border border-[#2D4636]/10 transition-all duration-300 hover:-translate-y-1.5 hover:scale-[1.02] hover:shadow-[0_12px_30px_rgba(45,70,54,0.12)] cursor-pointer relative">
                 <button
                   onClick={() => setSelected(item)}
                   className="w-full outline-none block"
@@ -204,7 +201,7 @@ export default function GalleryPage() {
                     <span>De: <strong>Invitado</strong></span>
                   </div>
                 </button>
-                <div className="absolute top-2 right-2 flex flex-col gap-2 z-20 md:opacity-0 group-hover:opacity-100 transition-all">
+                <div className="absolute top-2 right-2 flex flex-col gap-2 z-20 opacity-100 sm:opacity-0 group-hover:opacity-100 transition-all">
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
@@ -236,22 +233,26 @@ export default function GalleryPage() {
 
       {selected && (
         <div
-          className="fixed inset-0 z-[60] flex items-center justify-center bg-black/80 backdrop-blur-sm p-4"
+          className="fixed inset-0 z-[60] flex items-end sm:items-center justify-center bg-black/85 backdrop-blur-sm"
           onClick={() => setSelected(null)}
         >
-          <div className="max-w-4xl max-h-[90vh] overflow-hidden rounded-xl bg-[#f9f9f7] relative shadow-2xl" onClick={(e) => e.stopPropagation()}>
-            <img src={selected.url} alt={selected.alt} className="max-h-[75vh] w-full object-contain bg-black/5" />
-            <div className="flex items-center justify-between p-4 bg-white/50 backdrop-blur-sm border-t border-black/5">
+          <div className="w-full sm:max-w-4xl max-h-[92vh] sm:max-h-[90vh] overflow-hidden rounded-t-3xl sm:rounded-2xl bg-[#f9f9f7] relative shadow-2xl" onClick={(e) => e.stopPropagation()}>
+            {/* Drag handle for mobile */}
+            <div className="sm:hidden flex justify-center pt-3 pb-1">
+              <div className="w-10 h-1 rounded-full bg-black/15"></div>
+            </div>
+            <img src={selected.url} alt={selected.alt} className="max-h-[65vh] sm:max-h-[75vh] w-full object-contain bg-black/5" />
+            <div className="flex items-center justify-between gap-3 p-4 bg-white/50 backdrop-blur-sm border-t border-black/5" style={{ paddingBottom: 'max(1rem, env(safe-area-inset-bottom, 1rem))' }}>
               <button
                 onClick={() => handleDownloadSingle(selected.url, selected.id)}
-                className="flex items-center gap-2 rounded-xl bg-black px-5 py-2.5 text-sm font-label font-bold tracking-wide text-white shadow-md active:scale-95 transition-all hover:bg-stone-900"
+                className="flex-1 flex items-center justify-center gap-2 rounded-xl bg-[#2D4636] px-5 py-3 text-sm font-label font-bold tracking-wide text-white shadow-md active:scale-95 transition-all"
               >
                 <Download size={18} />
                 Descargar
               </button>
               <button
                 onClick={() => setSelected(null)}
-                className="rounded-xl bg-[#446351] px-5 py-2.5 text-sm font-label font-bold tracking-wide text-white shadow-md active:scale-95 transition-all"
+                className="flex-1 flex items-center justify-center rounded-xl bg-white border border-primary/10 px-5 py-3 text-sm font-label font-bold tracking-wide text-[#2D4636] shadow-sm active:scale-95 transition-all"
               >
                 Cerrar
               </button>
@@ -261,7 +262,7 @@ export default function GalleryPage() {
                   e.stopPropagation();
                   deletePhoto(selected.id, selected.file_path);
                 }}
-                className="absolute top-4 left-4 z-20 bg-white hover:bg-red-50 text-red-500 hover:text-red-600 p-2.5 rounded-full shadow-md transition-all hover:scale-105 active:scale-95"
+                className="absolute top-4 sm:top-4 left-4 z-20 bg-white hover:bg-red-50 text-red-500 hover:text-red-600 p-3 sm:p-2.5 rounded-full shadow-md transition-all active:scale-95"
                 aria-label="Borrar foto"
                 title="Borrar foto"
               >

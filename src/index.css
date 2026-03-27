@@ -6,8 +6,15 @@
 @tailwind utilities;
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-text-size-adjust: 100%;
+  }
   body {
-    min-height: max(884px, 100dvh);
+    min-height: 100dvh;
+    overscroll-behavior-y: none;
+    padding-bottom: env(safe-area-inset-bottom, 0px);
   }
 }
 
@@ -30,4 +37,20 @@
 .glass-nav {
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
+}
+
+/* Hide scrollbar across browsers */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* Fade-in animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in { animation: fadeIn 0.8s ease-out forwards; }
+
+/* Touch-friendly active states */
+@media (hover: none) {
+  .group:active { transform: scale(0.98); }
 }
