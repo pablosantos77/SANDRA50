@@ -1,5 +1,4 @@
 import React from 'react';
-import AdBanner from '../components/AdBanner';
 
 export default function PhotoGuidePage() {
   return (
@@ -15,8 +14,6 @@ export default function PhotoGuidePage() {
           que todos tengan unas pautas básicas. Así se consigue una galería más útil, más agradable de revisar y
           mucho más coherente en calidad. Para el 50 cumpleaños de Sandra, queremos las mejores tomas.
         </p>
-
-        <AdBanner slot="GD-003" className="my-8" />
 
         <h3 className="font-headline text-xl text-primary mt-8 mb-4">1. Aprovecha la luz natural y estabiliza el móvil</h3>
         <p className="font-body text-base leading-8 text-on-surface-variant">
@@ -34,8 +31,6 @@ export default function PhotoGuidePage() {
           bolsas, sillas vacías, vasos fuera de lugar o fondos desordenados. Dar dos pasos a un lado, bajar un poco
           el ángulo o esperar a que el fondo quede más limpio puede cambiar completamente el resultado. No uses el zoom digital. Camina hacia Sandra para capturar el detalle de su sonrisa y evita cortar manos o cabezas en las fotos de grupo.
         </p>
-
-        <AdBanner slot="GD-004" className="my-8" />
 
         <h3 className="font-headline text-xl text-primary mt-8 mb-4">3. Captura la naturalidad</h3>
         <p className="font-body text-base leading-8 text-on-surface-variant">

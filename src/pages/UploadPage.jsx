@@ -1,6 +1,5 @@
 import React, { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import AdBanner from '../components/AdBanner';
 import { uploadPhoto } from '../utils/upload';
 import UploadingOverlay from '../components/UploadingOverlay';
 
@@ -98,8 +97,6 @@ export default function UploadPage() {
               </li>
             </ul>
           </div>
-
-          <AdBanner slot="UP-005" />
         </aside>
       </div>
     </main>

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import AdBanner from '../components/AdBanner';
 import { uploadPhoto } from '../utils/upload';
 import UploadingOverlay from '../components/UploadingOverlay';
 import { supabase } from '../supabaseClient';
@@ -112,8 +111,6 @@ export default function HomePage() {
               </div>
             ))}
           </div>
-
-          <AdBanner className="mt-8" />
         </div>
       </section>
 

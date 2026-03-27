@@ -1,5 +1,5 @@
-import React, { useMemo, useState, useEffect, useCallback } from 'react';
-import AdBanner from '../components/AdBanner';
+import React, { useState, useEffect, useCallback } from 'react';
+import { Download } from 'lucide-react';
 import { supabase } from '../supabaseClient';
 
 const BUCKET = 'photos';
@@ -95,25 +95,44 @@ export default function GalleryPage() {
     }
   };
 
-  const items = useMemo(() => {
-    const mixed = [];
-    photos.forEach((photo, index) => {
-      mixed.push({ type: 'photo', ...photo });
-      if ((index + 1) % 6 === 0 && index !== photos.length - 1) {
-        mixed.push({ type: 'ad', id: `ad-${index}` });
-      }
-    });
-    return mixed;
-  }, [photos]);
+  const handleDownloadSingle = async (url, photoId) => {
+    try {
+      const resp = await fetch(url);
+      if (!resp.ok) throw new Error('Network response was not ok');
+      const blob = await resp.blob();
+      const blobUrl = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = blobUrl;
+      link.download = `sandra50-foto-${photoId}.jpg`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(blobUrl);
+    } catch (err) {
+      console.error('Error downloading:', err);
+      window.open(url, '_blank');
+    }
+  };
+
+  // Removed items ad mixer
 
   return (
     <main className="mx-auto min-h-screen max-w-[1000px] px-4 pb-28 pt-8 relative">
-      <header className="flex justify-between items-end mb-8 px-2">
+      <header className="flex items-end justify-between mb-8 px-2 flex-wrap gap-4">
         <div>
-          <h1 className="font-headline text-3xl text-primary md:text-left text-center">Galería de Momentos</h1>
+          <div className="flex items-center gap-4 flex-wrap justify-center md:justify-start">
+            <h1 className="font-headline text-3xl text-primary md:text-left text-center">Galería de Momentos</h1>
+            <button
+              onClick={() => alert(`¡Próximamente! Aquí se generará un archivo .zip con las ${photos.length} fotos de la fiesta.`)}
+              className="flex flex-shrink-0 items-center gap-2 bg-black hover:bg-stone-900 text-white px-4 py-2 rounded-xl font-label text-xs sm:text-sm font-bold tracking-widest uppercase transition-all shadow-lg active:scale-95"
+            >
+              <Download size={18} />
+              Descargar Todo
+            </button>
+          </div>
           <p className="text-on-surface-variant font-body text-sm mt-1 md:text-left text-center">Nuestros recuerdos favoritos</p>
         </div>
-        <span className="hidden md:inline text-secondary font-label text-xs uppercase tracking-widest font-bold">{photos.length} fotos</span>
+        <span className="hidden md:inline text-secondary font-label text-xs uppercase tracking-widest font-bold whitespace-nowrap">{photos.length} fotos</span>
       </header>
 
       {photos.length === 0 ? (
@@ -124,15 +143,7 @@ export default function GalleryPage() {
         </div>
       ) : (
         <div className="columns-2 sm:columns-3 lg:columns-[250px] gap-6 max-w-[1200px] mx-auto w-full">
-          {items.map((item) => {
-            if (item.type === 'ad') {
-              return (
-                <div key={item.id} className="break-inside-avoid mb-6 flex justify-center">
-                  <AdBanner slot={`GL-${item.id}`} />
-                </div>
-              );
-            }
-
+          {photos.map((item) => {
             return (
               <div key={item.id} className="group break-inside-avoid mb-6 bg-white rounded-2xl overflow-hidden shadow-[0_4px_15px_rgba(45,70,54,0.05)] border border-[#2D4636]/10 transition-all duration-300 hover:-translate-y-1.5 hover:scale-[1.02] hover:shadow-[0_12px_30px_rgba(45,70,54,0.12)] cursor-pointer relative">
                 <button
@@ -149,17 +160,30 @@ export default function GalleryPage() {
                     <span>De: <strong>Invitado</strong></span>
                   </div>
                 </button>
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    deletePhoto(item.id, item.file_path);
-                  }}
-                  className="absolute top-2 right-2 z-20 bg-white/90 hover:bg-red-50 text-red-500 hover:text-red-600 p-2 rounded-full shadow-[0_4px_12px_rgba(0,0,0,0.1)] transition-all md:opacity-0 group-hover:opacity-100 border border-red-100/50 hover:scale-105 active:scale-95"
-                  aria-label="Borrar foto"
-                  title="Borrar foto"
-                >
-                  <span className="material-symbols-outlined text-[18px] block">delete</span>
-                </button>
+                <div className="absolute top-2 right-2 flex flex-col gap-2 z-20 md:opacity-0 group-hover:opacity-100 transition-all">
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      deletePhoto(item.id, item.file_path);
+                    }}
+                    className="bg-white/90 hover:bg-red-50 text-red-500 hover:text-red-600 p-2 rounded-full shadow-[0_4px_12px_rgba(0,0,0,0.1)] transition-all border border-red-100/50 hover:scale-105 active:scale-95"
+                    aria-label="Borrar foto"
+                    title="Borrar foto"
+                  >
+                    <span className="material-symbols-outlined text-[18px] block">delete</span>
+                  </button>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleDownloadSingle(item.url, item.id);
+                    }}
+                    className="bg-white/90 hover:bg-emerald-50 text-[#446351] hover:text-emerald-700 p-2 rounded-full shadow-[0_4px_12px_rgba(0,0,0,0.1)] transition-all border border-emerald-100/50 hover:scale-105 active:scale-95"
+                    aria-label="Descargar foto"
+                    title="Descargar foto"
+                  >
+                    <Download size={18} />
+                  </button>
+                </div>
               </div>
             );
           })}
@@ -173,7 +197,14 @@ export default function GalleryPage() {
         >
           <div className="max-w-4xl max-h-[90vh] overflow-hidden rounded-xl bg-[#f9f9f7] relative shadow-2xl" onClick={(e) => e.stopPropagation()}>
             <img src={selected.url} alt={selected.alt} className="max-h-[75vh] w-full object-contain bg-black/5" />
-            <div className="flex items-center justify-end p-4">
+            <div className="flex items-center justify-between p-4 bg-white/50 backdrop-blur-sm border-t border-black/5">
+              <button
+                onClick={() => handleDownloadSingle(selected.url, selected.id)}
+                className="flex items-center gap-2 rounded-xl bg-black px-5 py-2.5 text-sm font-label font-bold tracking-wide text-white shadow-md active:scale-95 transition-all hover:bg-stone-900"
+              >
+                <Download size={18} />
+                Descargar
+              </button>
               <button
                 onClick={() => setSelected(null)}
                 className="rounded-xl bg-[#446351] px-5 py-2.5 text-sm font-label font-bold tracking-wide text-white shadow-md active:scale-95 transition-all"

@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import AdBanner from '../components/AdBanner';
 
 export default function SuccessUploadPage() {
   return (
@@ -9,7 +8,7 @@ export default function SuccessUploadPage() {
       <h1 className="font-headline text-4xl text-primary">¡Fotos subidas!</h1>
       <p className="mt-4 text-on-surface-variant font-body text-lg max-w-md mx-auto">Sandra ya puede ver tus recuerdos en el álbum compartido. ¡Gracias por participar!</p>
       
-      <AdBanner slot="SU-001" className="my-10 w-full" />
+      <div className="h-10"></div>
 
       <Link 
         to="/galeria" 
