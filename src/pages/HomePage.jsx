@@ -50,19 +50,14 @@ export default function HomePage() {
       
       {/* Dynamic Botanical Hero */}
       <section className="relative min-h-[85vh] flex flex-col items-center justify-center px-6 pt-16 pb-20 text-center overflow-hidden">
-        {/* Background Decorative Elements */}
+        {/* Background Decorative Element */}
         <div className="absolute inset-0 z-0 pointer-events-none">
           <img
             alt=""
-            className="absolute -top-16 left-1/2 -translate-x-1/2 w-[600px] opacity-[0.25] rotate-[180deg] blur-[0.5px]"
+            className="absolute inset-x-0 top-0 w-full h-[800px] sm:h-auto sm:inset-0 sm:w-full sm:h-full object-cover z-0 opacity-[0.35]"
             src="https://lh3.googleusercontent.com/aida-public/AB6AXuCOz07OzXIOKbo89qeG68QyikGF0zF_nmy5QoQ_6FVYwueUsoebajxbVSblE_9HRJjJ_lmHAOxVqdOHBWfqYLHfkOiSnYrCjn7BTOORTsCVO6VHcJOFs1G7LR-j0oma4-EHBVTgdv1Wo3ux--9YA7F31NPZwtkjJ6ZcxldpfaovDbS-XcjSLm7SShtDOhOnWii_swmoVboAl9YPj3cjScr9EjjnkProfdFCVmfNwAltaQMU_Z1ed5jf_Id_Wc6ZA8RwZ3YQt8lM8SPN"
           />
-          <img
-            alt=""
-            className="absolute -bottom-24 left-1/2 -translate-x-1/2 w-[700px] opacity-[0.25] rotate-[0deg] blur-[0.5px]"
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCOz07OzXIOKbo89qeG68QyikGF0zF_nmy5QoQ_6FVYwueUsoebajxbVSblE_9HRJjJ_lmHAOxVqdOHBWfqYLHfkOiSnYrCjn7BTOORTsCVO6VHcJOFs1G7LR-j0oma4-EHBVTgdv1Wo3ux--9YA7F31NPZwtkjJ6ZcxldpfaovDbS-XcjSLm7SShtDOhOnWii_swmoVboAl9YPj3cjScr9EjjnkProfdFCVmfNwAltaQMU_Z1ed5jf_Id_Wc6ZA8RwZ3YQt8lM8SPN"
-          />
-          <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#fcfcf9] to-transparent"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#fcfcf9]/10 to-[#fcfcf9]"></div>
         </div>
 
         <div className="relative z-10 space-y-6 max-w-2xl mx-auto">
