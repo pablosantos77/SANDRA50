@@ -45,30 +45,54 @@ export default function HomePage() {
   };
 
   return (
-    <main className="relative overflow-x-hidden min-h-screen">
+    <main className="relative overflow-x-hidden min-h-screen bg-[#fcfcf9]">
       {uploading && <UploadingOverlay />}
-      <section className="relative min-h-[751px] flex flex-col items-center justify-center px-6 text-center bg-surface">
-        <img
-          alt="Botanical Frame Background"
-          className="absolute inset-0 w-full h-full object-cover z-0 opacity-40"
-          src="https://lh3.googleusercontent.com/aida-public/AB6AXuCOz07OzXIOKbo89qeG68QyikGF0zF_nmy5QoQ_6FVYwueUsoebajxbVSblE_9HRJjJ_lmHAOxVqdOHBWfqYLHfkOiSnYrCjn7BTOORTsCVO6VHcJOFs1G7LR-j0oma4-EHBVTgdv1Wo3ux--9YA7F31NPZwtkjJ6ZcxldpfaovDbS-XcjSLm7SShtDOhOnWii_swmoVboAl9YPj3cjScr9EjjnkProfdFCVmfNwAltaQMU_Z1ed5jf_Id_Wc6ZA8RwZ3YQt8lM8SPN"
-        />
-        <div className="relative z-10 space-y-4">
-          <span className="font-label text-secondary tracking-[0.2em] text-sm uppercase">Celebrando el Legado</span>
-          <div className="flex flex-col items-center">
-            <h2 className="font-headline text-[10rem] leading-none text-primary/10 select-none">50</h2>
-            <h3 className="font-sandra text-6xl -mt-20 text-primary tracking-tight">Sandra</h3>
+      
+      {/* Dynamic Botanical Hero */}
+      <section className="relative min-h-[85vh] flex flex-col items-center justify-center px-6 pt-16 pb-20 text-center overflow-hidden">
+        {/* Background Decorative Elements */}
+        <div className="absolute inset-0 z-0 pointer-events-none">
+          <img
+            alt=""
+            className="absolute -top-24 -left-20 w-[450px] opacity-[0.08] rotate-[-15deg] blur-[2px] animate-pulse duration-[8000ms]"
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCOz07OzXIOKbo89qeG68QyikGF0zF_nmy5QoQ_6FVYwueUsoebajxbVSblE_9HRJjJ_lmHAOxVqdOHBWfqYLHfkOiSnYrCjn7BTOORTsCVO6VHcJOFs1G7LR-j0oma4-EHBVTgdv1Wo3ux--9YA7F31NPZwtkjJ6ZcxldpfaovDbS-XcjSLm7SShtDOhOnWii_swmoVboAl9YPj3cjScr9EjjnkProfdFCVmfNwAltaQMU_Z1ed5jf_Id_Wc6ZA8RwZ3YQt8lM8SPN"
+          />
+          <img
+            alt=""
+            className="absolute -bottom-32 -right-32 w-[550px] opacity-[0.05] rotate-[165deg] blur-[1px]"
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCOz07OzXIOKbo89qeG68QyikGF0zF_nmy5QoQ_6FVYwueUsoebajxbVSblE_9HRJjJ_lmHAOxVqdOHBWfqYLHfkOiSnYrCjn7BTOORTsCVO6VHcJOFs1G7LR-j0oma4-EHBVTgdv1Wo3ux--9YA7F31NPZwtkjJ6ZcxldpfaovDbS-XcjSLm7SShtDOhOnWii_swmoVboAl9YPj3cjScr9EjjnkProfdFCVmfNwAltaQMU_Z1ed5jf_Id_Wc6ZA8RwZ3YQt8lM8SPN"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#fcfcf9]/40 to-[#fcfcf9]"></div>
+        </div>
+
+        <div className="relative z-10 space-y-6 max-w-2xl mx-auto">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/5 border border-primary/10 mb-2 animate-fade-in">
+            <span className="w-1.5 h-1.5 rounded-full bg-primary animate-ping"></span>
+            <span className="font-label text-primary/70 tracking-[0.25em] text-[10px] uppercase font-bold">Celebrando el Legado</span>
           </div>
-          <p className="font-headline italic text-on-surface-variant max-w-xs mx-auto text-lg pt-4">
+
+          <div className="relative flex flex-col items-center py-4">
+             {/* Large stylish '50' background */}
+            <h2 className="font-headline text-[12rem] md:text-[16rem] leading-none text-primary/5 select-none absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 tracking-tighter transition-all duration-700 hover:text-primary/10">50</h2>
+            
+            <div className="relative pointer-events-none group">
+               <h3 className="font-sandra text-7xl md:text-9xl text-[#2D4636] tracking-tight drop-shadow-sm transition-transform duration-500 hover:scale-[1.02]">Sandra</h3>
+               <div className="h-0.5 w-16 bg-secondary/30 mx-auto mt-4 rounded-full"></div>
+            </div>
+          </div>
+
+          <p className="font-headline italic text-on-surface-variant max-w-sm mx-auto text-lg md:text-xl leading-relaxed opacity-90">
               Media vida llena de historias, amor y momentos inolvidables.
           </p>
-          <div className="pt-8 flex flex-col items-center gap-4">
-            <form className="w-full max-w-[280px]">
+
+          <div className="pt-10 flex flex-col sm:flex-row items-center justify-center gap-5">
+            <form className="w-full sm:w-auto">
               <label
-                  className="inline-flex items-center gap-2 bg-gradient-to-r from-primary to-primary-container text-on-primary px-8 py-4 rounded-xl font-label font-bold text-sm tracking-wide shadow-lg active:scale-95 transition-all w-full justify-center cursor-pointer mb-0 m-0"
+                  className="group relative inline-flex items-center gap-3 bg-[#2D4636] text-white px-10 py-5 rounded-2xl font-label font-bold text-sm tracking-widest shadow-[0_10px_40px_rgba(45,70,54,0.25)] hover:shadow-[0_15px_50px_rgba(45,70,54,0.35)] active:scale-95 transition-all duration-300 w-full sm:min-w-[240px] justify-center cursor-pointer overflow-hidden"
               >
-                <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>photo_camera</span>
-                SACA YA TU FOTO
+                <div className="absolute inset-0 bg-gradient-to-tr from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <span className="material-symbols-outlined text-xl transition-transform duration-500 group-hover:rotate-12" style={{ fontVariationSettings: "'FILL' 1" }}>photo_camera</span>
+                <span className="relative">SACA YA TU FOTO</span>
                 <input 
                   type="file" 
                   accept="image/*" 
@@ -78,35 +102,45 @@ export default function HomePage() {
                 />
               </label>
             </form>
+
             <Link
                 to="/galeria"
-                className="inline-flex items-center gap-2 bg-white/80 border border-primary/20 text-primary px-8 py-3 rounded-xl font-label font-bold text-sm tracking-wide shadow-sm hover:bg-white active:scale-95 transition-all w-full max-w-[280px] justify-center"
+                className="group inline-flex items-center gap-3 bg-white border border-primary/10 text-[#2D4636] px-10 py-5 rounded-2xl font-label font-bold text-sm tracking-widest shadow-sm hover:border-primary/30 hover:shadow-md active:scale-95 transition-all duration-300 w-full sm:min-w-[240px] justify-center"
             >
-              <span className="material-symbols-outlined">photo_library</span>
+              <span className="material-symbols-outlined text-xl transition-transform duration-500 group-hover:translate-x-1">photo_library</span>
               VER GALERÍA
             </Link>
           </div>
         </div>
+
+        {/* Scroll Indicator */}
+        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-30 animate-bounce duration-[2000ms]">
+          <span className="text-[10px] font-label uppercase tracking-widest">Descubrir</span>
+          <span className="material-symbols-outlined text-sm">expand_more</span>
+        </div>
       </section>
 
-      <section className="pt-20 pb-10 px-6 bg-surface-container-low relative">
-        <div className="max-w-md mx-auto">
-          <header className="text-center mb-12">
-            <h2 className="font-headline text-3xl text-primary">Cómo compartir</h2>
-            <div className="w-12 h-0.5 bg-secondary-fixed-dim mx-auto mt-3"></div>
+      <section className="pt-24 pb-16 px-6 bg-white relative">
+        <div className="max-w-xl mx-auto">
+          <header className="text-center mb-16">
+            <span className="font-label text-secondary/60 text-[10px] uppercase tracking-[0.3em] font-bold block mb-3">Guía rápida</span>
+            <h2 className="font-headline text-4xl text-primary">Cómo compartir</h2>
+            <div className="w-12 h-1 bg-primary/10 mx-auto mt-4 rounded-full"></div>
           </header>
           
-          <div className="grid gap-6 mb-8">
+          <div className="grid gap-8 mb-12">
             {[
-              { step: 1, title: "Elige las fotos", desc: "Navega por tu galería y selecciona los mejores recuerdos del cumpleaños." },
-              { step: 2, title: "Súbelas al álbum", desc: "Envíalas para que todos los invitados podamos disfrutarlas en directo." },
-              { step: 3, title: "Revive la fiesta", desc: "Entra a la galería compartida y no te pierdas ningún detalle de lo que pasó." }
+              { step: 1, title: "Elige las fotos", desc: "Navega por tu galería y selecciona los mejores momentos del cumpleaños de Sandra.", icon: "collections" },
+              { step: 2, title: "Súbelas al álbum", desc: "Súbelas en un instante para que todos los invitados podamos disfrutarlas juntos.", icon: "cloud_upload" },
+              { step: 3, title: "Revive la fiesta", desc: "Explora la galería compartida y descarga tus recuerdos favoritos.", icon: "auto_awesome_motion" }
             ].map(item => (
-              <div key={item.step} className="bg-surface-container-lowest p-6 rounded-xl shadow-[0_4px_12px_rgba(74,124,111,0.05)] flex items-start gap-4">
-                <div className="w-10 h-10 flex-shrink-0 bg-secondary-container text-on-secondary-container rounded-full flex items-center justify-center font-bold">{item.step}</div>
+              <div key={item.step} className="group bg-[#fcfcf9] p-8 rounded-[2rem] border border-primary/5 shadow-sm flex items-start gap-6 transition-all duration-300 hover:shadow-xl hover:shadow-primary/5 hover:-translate-y-1">
+                <div className="w-14 h-14 flex-shrink-0 bg-primary/10 text-primary rounded-2xl flex items-center justify-center transition-all duration-500 group-hover:bg-primary group-hover:text-white">
+                  <span className="material-symbols-outlined text-2xl" style={{ fontVariationSettings: "'FILL' 0" }}>{item.icon}</span>
+                </div>
                 <div>
-                  <h4 className="font-headline text-lg text-on-surface">{item.title}</h4>
-                  <p className="text-on-surface-variant font-body text-sm mt-1">{item.desc}</p>
+                  <h4 className="font-headline text-xl text-primary mb-2">{item.title}</h4>
+                  <p className="text-on-surface-variant font-body text-base leading-relaxed opacity-80">{item.desc}</p>
                 </div>
               </div>
             ))}
@@ -115,35 +149,39 @@ export default function HomePage() {
       </section>
 
       {recentPhotos.length > 0 && (
-        <section className="pt-4 pb-12 bg-surface text-center">
-          <div className="max-w-md mx-auto mb-6 px-6 relative z-10">
-            <h2 className="font-headline text-2xl text-primary mb-2">Últimos recuerdos</h2>
-            <p className="font-body text-sm text-on-surface-variant">Echa un vistazo a lo que están compartiendo.</p>
+        <section className="pt-16 pb-24 bg-[#fcfcf9] text-center overflow-hidden">
+          <div className="max-w-2xl mx-auto mb-12 px-6">
+            <h2 className="font-headline text-3xl text-primary mb-3">Últimos recuerdos</h2>
+            <p className="font-body text-base text-on-surface-variant opacity-70">Momentos capturados hace solo unos instantes.</p>
           </div>
-          <div className="flex overflow-x-auto gap-4 px-6 pb-8 snap-x snap-mandatory relative z-20" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
-            {recentPhotos.map((photo) => (
-              <div 
-                key={photo.id} 
-                className="shrink-0 snap-center w-[220px] aspect-[4/5] rounded-2xl overflow-hidden shadow-md bg-surface-container"
-              >
-                <img 
-                  src={photo.url} 
-                  alt="Recuerdo" 
-                  className="w-full h-full object-cover"
-                  loading="lazy"
-                />
-              </div>
-            ))}
-            <style dangerouslySetInnerHTML={{__html: `
-              .flex::-webkit-scrollbar { display: none; }
-            `}} />
+          
+          <div className="relative group/carousel">
+            <div className="flex overflow-x-auto gap-6 px-12 pb-10 snap-x snap-mandatory no-scrollbar relative z-10">
+              {recentPhotos.map((photo) => (
+                <div 
+                  key={photo.id} 
+                  className="shrink-0 snap-center w-[280px] aspect-[4/5] rounded-[2.5rem] overflow-hidden shadow-lg bg-white border-4 border-white transition-all duration-500 hover:scale-[1.03] hover:shadow-2xl hover:shadow-primary/10"
+                >
+                  <img 
+                    src={photo.url} 
+                    alt="Recuerdo" 
+                    className="w-full h-full object-cover transition-transform duration-700 hover:scale-110"
+                    loading="lazy"
+                  />
+                </div>
+              ))}
+            </div>
+            {/* Ambient gradients for carousel */}
+            <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-[#fcfcf9] to-transparent z-20 pointer-events-none"></div>
+            <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-[#fcfcf9] to-transparent z-20 pointer-events-none"></div>
           </div>
+
           <Link
             to="/galeria"
-            className="inline-flex items-center gap-2 text-primary font-label font-bold text-sm tracking-wide mt-2 hover:opacity-80 transition-opacity"
+            className="group inline-flex items-center gap-3 text-primary font-label font-bold text-sm tracking-[0.15em] mt-8 uppercase transition-all hover:gap-5"
           >
-            Ver la galería completa
-            <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
+            Explorar toda la galería
+            <span className="material-symbols-outlined text-[18px] transition-transform group-hover:translate-x-1">arrow_forward</span>
           </Link>
         </section>
       )}
