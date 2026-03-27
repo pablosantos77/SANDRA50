@@ -9,11 +9,19 @@ import SuccessUploadPage from './pages/SuccessUploadPage';
 import PhotoGuidePage from './pages/PhotoGuidePage';
 
 const Header = () => (
-  <header className="sticky top-0 w-full z-40 bg-[#f9f9f7]/90 dark:bg-stone-900/90 backdrop-blur-md shadow-[0_4px_20px_rgba(43,43,43,0.03)] transition-colors duration-300">
-    <div className="mx-auto flex max-w-6xl items-center justify-between px-6 h-16 w-full">
-      <Link to="/" className="flex items-center gap-2">
-        <span className="material-symbols-outlined text-[#446351] dark:text-emerald-200">spa</span>
-        <h1 className="font-['Noto_Serif'] font-bold text-xl tracking-tight text-[#446351] dark:text-emerald-200">50 de Sandra</h1>
+  <header className="sticky top-[env(safe-area-inset-top)] w-full z-40 bg-white/85 backdrop-blur-xl border-b border-primary/5 shadow-[0_8px_30px_rgba(45,70,54,0.04)] transition-all duration-500">
+    <div className="mx-auto flex max-w-[1200px] h-16 w-full items-center justify-center md:justify-start px-4 sm:px-6">
+      <Link 
+        to="/" 
+        className="group relative flex items-center gap-3 overflow-hidden rounded-2xl py-2 px-3 transition-all hover:bg-surface-container-low"
+      >
+        <div className="relative flex h-9 w-9 items-center justify-center rounded-xl bg-primary/10 text-primary transition-all duration-500 group-hover:rotate-12 group-hover:scale-110 group-hover:bg-primary group-hover:text-white group-hover:shadow-[0_4px_12px_rgba(45,70,54,0.25)]">
+          <span className="material-symbols-outlined text-[18px]">auto_awesome</span>
+        </div>
+        <div className="flex items-baseline gap-1.5 transition-transform duration-300 group-hover:translate-x-0.5">
+          <span className="font-headline text-[1.1rem] font-bold tracking-widest text-[#2D4636]">50</span>
+          <span className="font-sandra text-[1.35rem] font-normal leading-none tracking-normal text-secondary lowercase pt-1 group-hover:text-primary transition-colors duration-300">cumpleaños de Sandra</span>
+        </div>
       </Link>
     </div>
   </header>
