@@ -61,9 +61,9 @@ export default function HomePage() {
         </div>
 
         <div className="relative z-10 space-y-6 max-w-2xl mx-auto">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/5 border border-primary/10 mb-2 animate-fade-in">
-            <span className="w-1.5 h-1.5 rounded-full bg-primary animate-ping"></span>
-            <span className="font-label text-primary/70 tracking-[0.25em] text-[10px] uppercase font-bold">Celebrando el Legado</span>
+          <div className="inline-flex items-center gap-2.5 px-5 py-2 rounded-full bg-gradient-to-r from-[#2D4636]/5 to-[#2D4636]/10 border border-[#2D4636]/10 mb-2 animate-fade-in shadow-sm backdrop-blur-sm">
+            <span className="material-symbols-outlined text-[14px] text-[#2D4636] animate-pulse" style={{ fontVariationSettings: "'FILL' 1" }}>cake</span>
+            <span className="font-label text-[#2D4636]/80 tracking-[0.3em] text-[11px] uppercase font-bold">celebrando el cumpleaños</span>
           </div>
 
           <div className="relative flex flex-col items-center py-4">
@@ -109,13 +109,17 @@ export default function HomePage() {
         </div>
 
         {/* Scroll Indicator */}
-        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-30 animate-bounce duration-[2000ms]">
-          <span className="text-[10px] font-label uppercase tracking-widest">Descubrir</span>
-          <span className="material-symbols-outlined text-sm">expand_more</span>
-        </div>
+        <button 
+          onClick={() => document.getElementById('compartir')?.scrollIntoView({ behavior: 'smooth' })}
+          className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-30 hover:opacity-80 transition-all animate-bounce duration-[2000ms] cursor-pointer hover:translate-y-1 group/scroll"
+          aria-label="Descubrir más"
+        >
+          <span className="text-[10px] font-label uppercase tracking-[0.3em] font-bold group-hover/scroll:tracking-[0.4em] transition-all">Descubrir</span>
+          <span className="material-symbols-outlined text-sm group-hover/scroll:scale-110 transition-transform">expand_more</span>
+        </button>
       </section>
 
-      <section className="pt-24 pb-16 px-6 bg-white relative">
+      <section id="compartir" className="pt-24 pb-16 px-6 bg-white relative">
         <div className="max-w-xl mx-auto">
           <header className="text-center mb-16">
             <span className="font-label text-secondary/60 text-[10px] uppercase tracking-[0.3em] font-bold block mb-3">Guía rápida</span>
